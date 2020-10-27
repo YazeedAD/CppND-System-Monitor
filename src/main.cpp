@@ -10,7 +10,8 @@ int main() {
   System system;
 //  cout << system.Cpu().Utilization() ;
 //  cout << LinuxParser::RunningProcesses();
-  NCursesDisplay::Display(system);
+  //NCursesDisplay::Display(system);
+    cout << LinuxParser::Command(2310);
 
 //  while (1)
 //  {
