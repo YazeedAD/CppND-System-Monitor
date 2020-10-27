@@ -16,11 +16,28 @@ using std::size_t;
 using std::string;
 using std::vector;
 
-// TODO: Return the system's CPU
+bool CompCPU(const Process p1, const Process p2)
+{
+
+p1.
+  return   ;
+}
+
+// DONE: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 
 // TODO: Return a container composed of the system's processes
-vector<Process>& System::Processes() { return processes_; }
+vector<Process>& System::Processes() {
+  vector<Process> processes_vector;
+  for(unsigned long i=0; i < LinuxParser::Pids().size(); i++)
+  {
+    processes_vector[i] = Process(LinuxParser::Pids()[i]);
+  }
+
+  std::sort(processes_vector.begin(), processes_vector.end(), CompCPU);
+
+
+  return processes_ ; }
 
 // DONE: Return the system's kernel identifier (string)
 std::string System::Kernel() {
@@ -42,3 +59,4 @@ int System::TotalProcesses() { return LinuxParser::Pids().size(); }
 
 // DONE: Return the number of seconds since the system started running
 long int System::UpTime() { return LinuxParser::UpTime(); }
+

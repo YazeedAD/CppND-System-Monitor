@@ -35,7 +35,7 @@ string LinuxParser::OperatingSystem() {
   return value;
 }
 
-// DONE: An example of how to read data from the filesystem
+// DONE: An example oTotalProcessesf how to read data from the filesystem
 string LinuxParser::Kernel() {
   string os, kernel, version;
   string line;
@@ -225,10 +225,12 @@ long LinuxParser::IdleJiffies() {
 }
 
 // DONE: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { return {}; }
+vector<string> LinuxParser::CpuUtilization() {
+
+  return {}; }
 
 // DONE: Read and return the total number of processes
-int LinuxParser::TotalProcesses() { return 0; }
+  int LinuxParser::TotalProcesses() { return 0; }
 
 // DONE: Read and return the number of running processes
 int LinuxParser::RunningProcesses() {
