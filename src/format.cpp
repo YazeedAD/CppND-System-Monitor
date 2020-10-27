@@ -1,11 +1,23 @@
-#include <string>
-
 #include "format.h"
+
+#include <string>
+#include <iomanip>
 
 using std::string;
 
-// TODO: Complete this helper function
+// DONE: Complete this helper function
 // INPUT: Long int measuring seconds
 // OUTPUT: HH:MM:SS
 // REMOVE: [[maybe_unused]] once you define the function
-string Format::ElapsedTime(long seconds[[maybe_unused]]) { return string(); }
+string Format::ElapsedTime(long seconds [[maybe_unused]]) {
+  // Doc
+  long h=0;
+  long m=0;
+  long s=0;
+  char uptime[60];
+  h = seconds / 3600;
+  m = (seconds % 3600) / 60;
+  s = (seconds % 3600) % 60;
+  std::sprintf(uptime,"%02ld:%02ld:%02ld",h, m ,s);
+  return uptime;
+}
