@@ -246,7 +246,7 @@ float LinuxParser::CpuUtilization(int pid) {
   long total_time;
   long seconds;
   float cpu_usage;
-
+  long upt = LinuxParser::UpTime();
   int parser_counter = 1;
   std::ifstream stream(kProcDirectory + pid_dir + kStatFilename);
   if (stream.is_open()) {
@@ -256,19 +256,19 @@ float LinuxParser::CpuUtilization(int pid) {
       // Doc
       switch (parser_counter++) {
         case utime_:
-          utime = std::stof(value);
+          utime = std::stol(value);
           break;
         case stime_:
-          stime = std::stof(value);
+          stime = std::stol(value);
           break;
         case cutime_:
-          cutime = std::stof(value);
+          cutime = std::stol(value);
           break;
         case cstime_:
-          cstime = std::stof(value);
+          cstime = std::stol(value);
           break;
         case starttime_:
-          starttime = std::stof(value);
+          starttime = std::stol(value);
           break;
         default:
           break;
@@ -278,8 +278,11 @@ float LinuxParser::CpuUtilization(int pid) {
     hertez = sysconf(_SC_CLK_TCK);
     total_time = utime + stime + cutime + cstime;
     total_time= total_time/hertez;
-    seconds = (utime/hertez) - (starttime/hertez);
+
+    seconds = (upt) - (starttime/hertez);
     cpu_usage = (float)total_time/(float)seconds;
+    if (cpu_usage > 1)
+      return 0;
     return cpu_usage;
   } else
     throw std::exception();
@@ -341,7 +344,7 @@ string LinuxParser::Ram(int pid) {
     while (std::getline(stream, line)) {
       std::istringstream linestream(line);
       linestream >> value >> key;
-      if (value != "Vmsize:") continue;
+      if (value != "VmSize:") continue;
       stream.close();
       mem_MB = std::stol(key) / 1000;
       return to_string(mem_MB);

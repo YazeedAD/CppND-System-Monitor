@@ -24,17 +24,18 @@ bool CompCPU(Process p1, Process p2)
 // DONE: Return the system's CPU
 Processor& System::Cpu() { return cpu_; }
 
-// TODO: Return a container composed of the system's processes
+// DONE: Return a container composed of the system's processes
 vector<Process>& System::Processes() {
   vector<Process> processes_vector;
   for(unsigned long i=0; i < LinuxParser::Pids().size(); i++)
   {
-    processes_vector[i] = Process(LinuxParser::Pids()[i]);
+//    processes_vector.push_back(Process(LinuxParser::Pids()[i]));
+    processes_vector.emplace_back(LinuxParser::Pids()[i]);
+
   }
 
   std::sort(processes_vector.begin(), processes_vector.end(), CompCPU);
-
-
+  processes_ = processes_vector;
   return processes_ ; }
 
 // DONE: Return the system's kernel identifier (string)
