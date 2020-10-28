@@ -30,6 +30,10 @@ std::string NCursesDisplay::ProgressBar(float percent) {
 
 void NCursesDisplay::DisplaySystem(System& system, WINDOW* window) {
   int row{0};
+  mvwprintw(window, ++row, 1, ("System-Monitor"));
+  mvwprintw(window, ++row, 1, ("Udacity_ND, YAZEED"));
+  mvwprintw(window, ++row, 1, (""));
+  mvwprintw(window, ++row, 1, ("System Info:"));
   mvwprintw(window, ++row, 2, ("OS: " + system.OperatingSystem()).c_str());
   mvwprintw(window, ++row, 2, ("Kernel: " + system.Kernel()).c_str());
   mvwprintw(window, ++row, 2, "CPU: ");
@@ -50,6 +54,7 @@ void NCursesDisplay::DisplaySystem(System& system, WINDOW* window) {
   mvwprintw(window, ++row, 2,
             ("Up Time: " + Format::ElapsedTime(system.UpTime())).c_str());
   wrefresh(window);
+
 }
 
 void NCursesDisplay::DisplayProcesses(std::vector<Process>& processes,
@@ -89,7 +94,7 @@ void NCursesDisplay::Display(System& system, int n) {
   start_color();  // enable color
 
   int x_max{getmaxx(stdscr)};
-  WINDOW* system_window = newwin(9, x_max - 1, 0, 0);
+  WINDOW* system_window = newwin(13, x_max - 1, 0, 0);
   WINDOW* process_window =
       newwin(3 + n, x_max - 1, system_window->_maxy + 1, 0);
 
