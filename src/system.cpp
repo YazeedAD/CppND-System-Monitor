@@ -16,11 +16,9 @@ using std::size_t;
 using std::string;
 using std::vector;
 
-bool CompCPU(const Process p1, const Process p2)
+bool CompCPU(Process p1, Process p2)
 {
-
-p1.
-  return   ;
+  return p1.CpuUtilization() > p2.CpuUtilization();
 }
 
 // DONE: Return the system's CPU

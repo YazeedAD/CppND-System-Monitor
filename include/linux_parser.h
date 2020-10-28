@@ -52,7 +52,7 @@ int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
 
-std::vector<std::string> CpuUtiSlization();
+float CpuUtilization(int pid);
 long Jiffies();
 long ActiveJiffies();
 long ActiveJiffies(int pid);

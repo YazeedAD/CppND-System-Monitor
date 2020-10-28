@@ -224,13 +224,70 @@ long LinuxParser::IdleJiffies() {
     throw std::exception();
 }
 
-// DONE: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() {
+// DONE: Read and return CPU utilization for a process
 
-  return {}; }
+//#14 utime - CPU time spent in user code, measured in clock ticks
+//#15 stime - CPU time spent in kernel code, measured in clock ticks
+//#16 cutime - Waited-for children's CPU time spent in user code (in clock
+//ticks) #17 cstime - Waited-for children's CPU time spent in kernel code (in
+//clock ticks) #22 starttime - Time when the process started, measured in clock
+//ticks
+
+float LinuxParser::CpuUtilization(int pid) {
+  string pid_dir = to_string(pid);
+  string line;
+  string value;
+  long utime;
+  long stime;
+  long cutime;
+  long cstime;
+  long starttime;
+  long hertez;
+  long total_time;
+  long seconds;
+  float cpu_usage;
+
+  int parser_counter = 1;
+  std::ifstream stream(kProcDirectory + pid_dir + kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    while (linestream >> value && parser_counter <= starttime_) {
+      // Doc
+      switch (parser_counter++) {
+        case utime_:
+          utime = std::stof(value);
+          break;
+        case stime_:
+          stime = std::stof(value);
+          break;
+        case cutime_:
+          cutime = std::stof(value);
+          break;
+        case cstime_:
+          cstime = std::stof(value);
+          break;
+        case starttime_:
+          starttime = std::stof(value);
+          break;
+        default:
+          break;
+      }
+    }
+    stream.close();
+    hertez = sysconf(_SC_CLK_TCK);
+    total_time = utime + stime + cutime + cstime;
+    total_time= total_time/hertez;
+    seconds = (utime/hertez) - (starttime/hertez);
+    cpu_usage = (float)total_time/(float)seconds;
+    return cpu_usage;
+  } else
+    throw std::exception();
+  return 0;
+}
 
 // DONE: Read and return the total number of processes
-  int LinuxParser::TotalProcesses() { return 0; }
+int LinuxParser::TotalProcesses() { return 0; }
 
 // DONE: Read and return the number of running processes
 int LinuxParser::RunningProcesses() {
@@ -329,8 +386,8 @@ string LinuxParser::User(int pid) {
   if (stream.is_open()) {
     while (getline(stream, line)) {
       std::istringstream linestream(line);
-      parser_counter=1;
-      while (getline(linestream, token, ':') && parser_counter <=3) {
+      parser_counter = 1;
+      while (getline(linestream, token, ':') && parser_counter <= 3) {
         std::istringstream tokenStream(token);
         switch (parser_counter++) {
           case name_:

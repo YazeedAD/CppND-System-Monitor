@@ -10,12 +10,13 @@ int main() {
   System system;
 //  cout << system.Cpu().Utilization() ;
 //  cout << LinuxParser::RunningProcesses();
-//  NCursesDisplay::Display(system);
+  NCursesDisplay::Display(system);
 //    cout << Process(2310).Command();
 //    cout << LinuxParser::Uid(2310);
 //    cout << Process(2310).UpTime();
-      cout << LinuxParser::User(2310);
-//  while (1)
+//      cout << LinuxParser::User(2310);
+  //cout << Process(2310).CpuUtilization();
+  //  while (1)
 //  {
 //    cout << Format::ElapsedTime(system.UpTime()) << "\n";
 //    sleep(1);
