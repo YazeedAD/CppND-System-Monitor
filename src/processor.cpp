@@ -1,9 +1,6 @@
 #include "processor.h"
-#include <ctime>
-#include <unistd.h>
 #include "linux_parser.h"
 
-// DONE: Return the aggregate CPU utilization
 float Processor::Utilization() {
   long c_idle=0;
   long c_active=0;

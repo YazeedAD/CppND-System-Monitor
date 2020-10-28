@@ -5,7 +5,7 @@
 #include <regex>
 #include <string>
 namespace LinuxParser {
-// Paths
+
 const std::string kProcDirectory{"/proc/"};
 const std::string kCmdlineFilename{"/cmdline"};
 const std::string kCpuinfoFilename{"/cpuinfo"};
@@ -43,7 +43,6 @@ enum PASSWD_uid {
 };
 
 
-// System
 float MemoryUtilization();
 long UpTime();
 std::vector<int> Pids();
@@ -58,12 +57,11 @@ long ActiveJiffies();
 long ActiveJiffies(int pid);
 long IdleJiffies();
 
-// Processes
 std::string Command(int pid);
 std::string Ram(int pid);
 std::string Uid(int pid);
 std::string User(int pid);
 long int UpTime(int pid);
-};  // namespace LinuxParser
+};
 
 #endif
