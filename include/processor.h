@@ -7,6 +7,8 @@ class Processor {
 
   // DONE: Declare any necessary private members
  private:
+  long p_idle=0;
+  long p_active=0;
 };
 
 #endif
